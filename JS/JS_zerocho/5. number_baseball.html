@@ -1,0 +1,58 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>숫자야구</title>
+</head>
+<body>
+<form id="form">
+  <input type="text" id="input">
+  <button>확인</button>
+</form>
+<div id="logs"></div>
+
+<script>
+  const $input = document.querySelector('#input');
+  const $form = document.querySelector('#form');
+  const $logs = document.querySelector('#logs');
+
+  const numbers = [];
+  for (let n =0; n<=9; n+=1){
+    numbers.push(n+1);
+  }
+
+  const answer = [];
+  for (let n = 0; n<4; n+=1) { //네번 반복함
+    const index = Math.floor(Math.random()*(number.length)); //0~8 정수
+    answer.push(numbers[index]); //뽑은애를 push해줌
+    numbers.splice(index,i); //뽑았으니까 원래거에서 splice로 지워줌
+  }
+  console.log(answer);
+
+  const tries = [];
+  function checkInput(input){ //검사하는 코드
+    if(input.length !== 4) {
+      return alert('4자리 숫자를 입력해주세요.');
+    }
+    if(new Set(input).size !== 4){ //new set 중복을 제거한 배열 
+      return alert('중복되지 않게 입력해 주세요.');
+    }
+    if (tries.includes(input)){
+      return alert('이미 시도한 값입니다.');
+    }
+    return true;
+  } 
+  $form.addEventListener('submit', (event)=>{ //form 은 submit이라는 이벤트가있음! form은 새로고침되는 기본동작이있음. 이 기본동작을 취소할 수 있음 
+    event.preventDefault(); //기본동작 막기
+    console.log('서브밋');
+    const value = $input.value;
+    $input.value = ''; //다음 값 쉽게 입력하라고 지워주는 센스!
+    if (checkInput(value)){
+      //입력값 문제없음
+      tries.push(value);
+    }else{
+      //에러있음
+    }
+  })
+</script>
+</body>
+</html>
